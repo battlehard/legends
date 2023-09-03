@@ -9,7 +9,7 @@ namespace Swappables
   public partial class Legends
   {
     [Safe]
-    public override string Symbol() => "LEGENDS";
+    public override string Symbol() => "SWAPPABLES";
 
     [Safe]
     public static UInt160 GetContractOwner()
