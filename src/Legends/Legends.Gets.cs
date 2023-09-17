@@ -37,10 +37,10 @@ namespace Swappables
       Assert(pageNumber > 0 && pageSize > 0, "Pagination data must be provided, pageNumber and pageSize must have at least 1");
       Assert(pageSize <= MAX_PAGE_LIMIT, $"Input page limit exceed the max limit of {MAX_PAGE_LIMIT}");
 
-      BigInteger totalNftPool = BalanceOf(Runtime.ExecutingScriptHash);
-      // Calculate the total number of pages based on the total trades and page size
-      BigInteger totalPages = totalNftPool / pageSize;
-      if (totalNftPool % pageSize > 0)
+      BigInteger totalNft = BalanceOf(Runtime.ExecutingScriptHash);
+      // Calculate the total number of pages based on the total NFTs and page size
+      BigInteger totalPages = totalNft / pageSize;
+      if (totalNft % pageSize > 0)
       {
         totalPages += 1;
       }
@@ -52,9 +52,9 @@ namespace Swappables
       // Initialize return variable
       Map<string, object> nftPoolPaginationData = new();
       nftPoolPaginationData["totalPages"] = totalPages;
-      nftPoolPaginationData["totalNftPool"] = totalNftPool;
-      // Get list of active trades with pagination parameters
-      nftPoolPaginationData["tradeList"] = GetNftInPool(skipCount, pageSize);
+      nftPoolPaginationData["totalNfts"] = totalNft;
+      // Get list of all NFTs in the pool with pagination parameters
+      nftPoolPaginationData["nftList"] = GetNftInPool(skipCount, pageSize);
       return nftPoolPaginationData;
     }
 
