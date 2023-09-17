@@ -2,6 +2,7 @@ using Neo.VM;
 using Neo.VM.Types;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Numerics;
 using System.Text;
 
 namespace test
@@ -15,6 +16,7 @@ namespace test
     public static readonly string LEGENDS_ADMIN = "LegendsAdmin";
     public static readonly string LEGENDS_USER = "LegendsUser";
     public static readonly string LEGENDS_NOT_EXIST = "LegendsNotExist";
+    public static readonly BigInteger MAX_PAGE_LIMIT = 100;
 
     /// <summary>
     /// Use for extract StackItem that store Map<string, object> data type. e.g. return value from Properties

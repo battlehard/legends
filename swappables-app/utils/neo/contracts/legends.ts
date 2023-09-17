@@ -9,6 +9,7 @@ import { WalletAPI } from '../wallet'
 import { getTokensOf, stackJsonToObject } from '../helpers'
 import { Network } from '../network'
 import { wallet as NeonWallet, tx } from '@cityofzion/neon-core'
+import { CONTRACT_EXCEPTION, MAX_PAGE_LIMIT } from '@/components/constant'
 
 export enum AdminWhiteListAction {
   ADD = 'Add',
@@ -24,6 +25,12 @@ export interface ILegendsProperties {
   owner: string
   name: string
   image: string
+}
+
+export interface INftPoolListpagination {
+  totalPages: number
+  totalNfts: number
+  nftList: ILegendsProperties[]
 }
 
 export interface IMintInput {
@@ -205,6 +212,31 @@ export class LegendsContract {
       connectedWallet.account.address,
       invokeScript
     )
+  }
+
+  ListNftPool = async (
+    currentPage: number = 1,
+    pageItemsLimit: number = MAX_PAGE_LIMIT
+  ): Promise<INftPoolListpagination> => {
+    const invokeScript: IInvokeScriptJson = {
+      operation: 'listNftPool',
+      scriptHash: this.contractHash,
+      args: [
+        {
+          type: 'Integer',
+          value: currentPage,
+        },
+        {
+          type: 'Integer',
+          value: pageItemsLimit,
+        },
+      ],
+    }
+
+    const res = await Network.read(this.network, [invokeScript])
+    if (res.state == 'FAULT')
+      throw new Object({ type: CONTRACT_EXCEPTION, description: res.exception })
+    return stackJsonToObject(res.stack[0])
   }
 
   getProperties = async (tokenId: string): Promise<ILegendsProperties> => {
