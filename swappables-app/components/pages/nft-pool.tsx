@@ -5,12 +5,12 @@ import {
   Box,
   Button,
   Modal,
+  TablePagination,
   Typography,
   styled,
 } from '@mui/material'
 import {
   ILegendsProperties,
-  LEGENDS_SCRIPT_HASH,
   LegendsContract,
 } from '@/utils/neo/contracts/legends'
 import React, { useEffect, useState } from 'react'
@@ -101,6 +101,7 @@ export default function NftPoolPage() {
 
   const { connectedWallet, network } = useWallet()
   const [loading, setLoading] = useState(true)
+  const [totalNft, setTotalNft] = useState(0)
   const [nftList, setNftList] = useState<ILegendsProperties[]>([])
   const [openModal, setOpenModal] = useState(false)
   const handleModalOpen = (fromTokenId: string) => {
@@ -115,13 +116,17 @@ export default function NftPoolPage() {
   const [walletLoading, setWalletLoading] = useState(true)
   const [walletNftList, setWalletNftList] = useState<ILegendsProperties[]>([])
 
-  const fetchContractNft = async () => {
+  // List all NFTs in the pool with pagination, which are NFTs that contract holding
+  const fetchContractNft = async (page: number, rowsPerPage: number) => {
     setLoading(true)
     try {
-      const result = await new LegendsContract(network).getTokensOf(
-        LEGENDS_SCRIPT_HASH[network]
+      page = page + 1 // TablePagination component use index which start with 0, while contract use human readable page number.
+      const result = await new LegendsContract(network).ListNftPool(
+        page,
+        rowsPerPage
       )
-      setNftList(result)
+      setNftList(result.nftList)
+      setTotalNft(result.totalNfts)
     } catch (e: any) {
       if (e.type !== undefined) {
         showErrorPopup(`Error: ${e.type} ${e.description}`)
@@ -150,10 +155,6 @@ export default function NftPoolPage() {
     setWalletLoading(false)
   }
 
-  useEffect(() => {
-    fetchContractNft()
-  }, [])
-
   const [selectedPoolTokenId, setSelectedPoolTokenId] = useState('')
   const handleTrade = async (walletTokenId: string) => {
     if (connectedWallet) {
@@ -173,6 +174,28 @@ export default function NftPoolPage() {
     }
   }
 
+  // Pagination Handler
+  const [page, setPage] = React.useState(0) // First page start with 0
+  const [rowsPerPage, setRowsPerPage] = React.useState(10) // Initialize rows per page with 10
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
+
+  useEffect(() => {
+    fetchContractNft(page, rowsPerPage)
+  }, [page, rowsPerPage])
+
   return (
     <Box sx={{ width: '100%' }}>
       {loading && <MessagePanel message="Loading" />}
@@ -181,6 +204,15 @@ export default function NftPoolPage() {
       )}
       {!loading && nftList.length > 0 && (
         <Container>
+          <TablePagination
+            component="div"
+            style={{ alignSelf: 'center' }}
+            count={totalNft}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
           <ContainerRowForPool>
             <Div>Image</Div>
             <Div>Name</Div>
@@ -207,6 +239,15 @@ export default function NftPoolPage() {
               </ContainerRowForPool>
             )
           })}
+          <TablePagination
+            component="div"
+            style={{ alignSelf: 'center' }}
+            count={totalNft}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </Container>
       )}
       <Modal
