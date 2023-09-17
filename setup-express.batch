@@ -13,4 +13,15 @@ checkpoint create ./checkpoints/legends-deployed -f
 contract invoke ./invoke-files/mint-for-owner.neo-invoke.json owner
 contract invoke ./invoke-files/mint-for-admin.neo-invoke.json admin
 contract invoke ./invoke-files/mint-for-user.neo-invoke.json owner
+contract run -a owner Legends mint https://host.com/Legends01.jpg, Legends01, #Legends
+contract run -a owner Legends mint https://host.com/Legends02.jpg, Legends02, #Legends
+contract run -a owner Legends mint https://host.com/Legends03.jpg, Legends03, #Legends
+contract run -a owner Legends mint https://host.com/Legends04.jpg, Legends04, #Legends
+contract run -a owner Legends mint https://host.com/Legends05.jpg, Legends05, #Legends
+contract run -a owner Legends mint https://host.com/Legends06.jpg, Legends06, #Legends
+contract run -a owner Legends mint https://host.com/Legends07.jpg, Legends07, #Legends
+contract run -a owner Legends mint https://host.com/Legends08.jpg, Legends08, #Legends
+contract run -a owner Legends mint https://host.com/Legends09.jpg, Legends09, #Legends
+contract run -a owner Legends mint https://host.com/Legends10.jpg, Legends10, #Legends
+contract run -a owner Legends mint https://host.com/Legends11.jpg, Legends11, #Legends
 checkpoint create ./checkpoints/legends-minted-to-wallet -f

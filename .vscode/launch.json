@@ -52,6 +52,20 @@
         }
       ],
       "checkpoint": "${workspaceFolder}/checkpoints/legends-minted-to-wallet.neoxp-checkpoint"
+    },
+    {
+      "name": "Debug list NFT pool",
+      "type": "neo-contract",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Legends/bin/sc/Legends.nef",
+      "neo-express": "${workspaceFolder}/default.neo-express",
+      "invocation": {
+        "operation": "debug_ListNftPool",
+        "args": []
+      },
+      "storage": [],
+      "signers": ["@owner"],
+      "checkpoint": "${workspaceFolder}/checkpoints/legends-minted-to-wallet.neoxp-checkpoint"
     }
   ]
 }
