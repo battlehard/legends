@@ -1,13 +1,11 @@
-using Neo;
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Native;
 using Neo.SmartContract.Framework.Services;
-using static Swappables.Helpers;
+using static Hardened.Helpers;
 
-#pragma warning disable CS8618 // Suppress warning nullable
-namespace Swappables
+namespace Hardened
 {
-  public partial class Legends
+  public partial class Hardened
   {
     private static bool IsOwner()
     {
@@ -32,18 +30,6 @@ namespace Swappables
     {
       CheckOwner();
       ContractManagement.Update(nefFile, manifest, null);
-    }
-
-    public static void AddAdminWhiteList(UInt160 contractHash)
-    {
-      CheckOwner();
-      AdminWhiteListStorage.Put(contractHash);
-    }
-
-    public static void RemoveAdminWhiteList(UInt160 contractHash)
-    {
-      CheckOwner();
-      AdminWhiteListStorage.Delete(contractHash);
     }
   }
 }
