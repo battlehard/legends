@@ -5,13 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Manage Admin",
+      "name": "TestSuite",
       "type": "neo-contract",
       "request": "launch",
       "program": "${workspaceFolder}/src/Hardened/bin/sc/Hardened.nef",
       "neo-express": "${workspaceFolder}/default.neo-express",
       "invocation": {
-        "operation": "debug_ManageAdmin",
+        "operation": "testSuite",
         "args": []
       },
       "storage": [],
