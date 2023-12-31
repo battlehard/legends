@@ -1,12 +1,11 @@
 using Neo;
 using Neo.SmartContract.Framework;
 using Neo.SmartContract.Framework.Services;
+using static Swappables.Helpers;
 using System;
 using System.Numerics;
-using static Hardened.Helpers;
 
-
-namespace Hardened
+namespace Swappables
 {
   public class Transfer
   {

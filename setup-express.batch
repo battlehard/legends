@@ -5,5 +5,23 @@ transfer 10000 neo genesis admin
 transfer 10000 gas genesis user
 transfer 10000 neo genesis user
 
-contract deploy ./src/Hardened/bin/sc/Hardened.nef owner
-checkpoint create ./checkpoints/hardened-deployed -f
+contract deploy ./src/Legends/bin/sc/Legends.nef owner
+contract invoke ./invoke-files/add-admin-whitelist.neo-invoke.json owner
+contract invoke ./invoke-files/mint-to-pool.neo-invoke.json owner
+checkpoint create ./checkpoints/legends-deployed -f
+
+contract invoke ./invoke-files/mint-for-owner.neo-invoke.json owner
+contract invoke ./invoke-files/mint-for-admin.neo-invoke.json admin
+contract invoke ./invoke-files/mint-for-user.neo-invoke.json owner
+contract run -a owner Legends mint https://host.com/Legends01.jpg, Legends01, #Legends
+contract run -a owner Legends mint https://host.com/Legends02.jpg, Legends02, #Legends
+contract run -a owner Legends mint https://host.com/Legends03.jpg, Legends03, #Legends
+contract run -a owner Legends mint https://host.com/Legends04.jpg, Legends04, #Legends
+contract run -a owner Legends mint https://host.com/Legends05.jpg, Legends05, #Legends
+contract run -a owner Legends mint https://host.com/Legends06.jpg, Legends06, #Legends
+contract run -a owner Legends mint https://host.com/Legends07.jpg, Legends07, #Legends
+contract run -a owner Legends mint https://host.com/Legends08.jpg, Legends08, #Legends
+contract run -a owner Legends mint https://host.com/Legends09.jpg, Legends09, #Legends
+contract run -a owner Legends mint https://host.com/Legends10.jpg, Legends10, #Legends
+contract run -a owner Legends mint https://host.com/Legends11.jpg, Legends11, #Legends
+checkpoint create ./checkpoints/legends-minted-to-wallet -f
