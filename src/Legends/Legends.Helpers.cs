@@ -1,5 +1,6 @@
 ﻿using Neo.SmartContract.Framework.Native;
 using Neo.SmartContract.Framework.Services;
+using System.Numerics;
 using static Swappables.Helpers;
 
 #pragma warning disable CS8618 // Suppress warning nullable
@@ -35,6 +36,16 @@ namespace Swappables
     {
       ValidateExistingTokenId(tokenId);
       Assert(TradePoolStorage.IsAvailable(tokenId), $"{CONTRACT_NAME}: {tokenId} in not available in the pool");
+    }
+
+    private static void CheckReEntrancy()
+    {
+      // Debug always default as false.
+      // Will be change to true in the debug mode to skip ReEntrancy Check where same methods call multiples time in a transaction.
+      if ((BigInteger)Storage.Get(Storage.CurrentContext, Prefix_Debug) == 0)
+      {
+        Assert(Runtime.InvocationCounter == 1, "Re-Entrancy Not Allowed");
+      }
     }
   }
 }
