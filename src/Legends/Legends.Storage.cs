@@ -8,9 +8,11 @@ namespace Swappables
 {
   partial class Legends
   {
-    private static readonly byte[] Prefix_Owner = new byte[] { 0x01, 0x00 };
-    private static readonly byte[] Prefix_Admin_White_List = new byte[] { 0x01, 0x01 };
-    private static readonly byte[] Prefix_Trade_Pool = new byte[] { 0x01, 0x02 };
+    private static readonly byte[] Prefix_Owner = new byte[] { 0x10, 0x00 };
+    private static readonly byte[] Prefix_Admin_White_List = new byte[] { 0x10, 0x01 };
+    private static readonly byte[] Prefix_Trade_Pool = new byte[] { 0x10, 0x02 };
+    private static readonly byte[] Prefix_Debug = new byte[] { 0x10, 0xff };
+    private static readonly byte[] Prefix_MigrationNo1 = new byte[] { 0x20, 0x01 };
 
     /// <summary>
     /// Class <c>AdminWhiteListStorage</c>

@@ -25,3 +25,6 @@ contract run -a owner Legends mint https://host.com/Legends09.jpg, Legends09, #L
 contract run -a owner Legends mint https://host.com/Legends10.jpg, Legends10, #Legends
 contract run -a owner Legends mint https://host.com/Legends11.jpg, Legends11, #Legends
 checkpoint create ./checkpoints/legends-minted-to-wallet -f
+
+contract download --height 5751482 --force:All 0x521e762b977acf92ac8495975d6cbe3311a51cf1 MainNet
+checkpoint create ./checkpoints/legends-mainnet -f

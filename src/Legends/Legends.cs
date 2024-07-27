@@ -17,6 +17,7 @@ namespace Swappables
   {
     public static void Trade(string fromTokenId, string toTokenId)
     {
+      CheckReEntrancy();
       LegendsState fromState = GetStateById(fromTokenId);
       UInt160 tradingWallet = fromState.Owner;
       Assert(Runtime.CheckWitness(tradingWallet), $"{CONTRACT_NAME}: No NFT ownership");

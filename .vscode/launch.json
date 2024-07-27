@@ -66,6 +66,20 @@
       "storage": [],
       "signers": ["@owner"],
       "checkpoint": "${workspaceFolder}/checkpoints/legends-minted-to-wallet.neoxp-checkpoint"
+    },
+    {
+      "name": "Storage Migration No1",
+      "type": "neo-contract",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/Legends/bin/sc/Legends.nef",
+      "neo-express": "${workspaceFolder}/default.neo-express",
+      "invocation": {
+        "operation": "storageMigrationNo1",
+        "args": []
+      },
+      "storage": [],
+      "signers": ["@owner"],
+      "checkpoint": "${workspaceFolder}/checkpoints/legends-mainnet.neoxp-checkpoint"
     }
   ]
 }
